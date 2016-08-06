@@ -16,7 +16,8 @@ var Main = React.createClass({
 	getInitialState: function(){
 		return {
 			searchTerm: "",
-			results: ""
+			results: "",
+			searchHistory: ""
 		}
 	},
 
@@ -41,30 +42,19 @@ var Main = React.createClass({
 						console.log(data);
 
 						this.setState({
-							results: data,
-							history: [{
-								"searchTerm": "New York",
-								"date": "date"
+							results: data
 					    	}]
 						})
 					}
 
-			// helpers.setHistory(this.state.searchTerm)
-			// 	.then(function(data){
-			// 		if (data != this.state.results)
-			// 		{
-			// 			// console.log("HERE");
-			// 			// console.log(data);
-
-			// 			this.setState({
-			// 				results: data
-			// 			})		
-			// 		}
-
 				// This code is necessary to bind the keyword "this" when we say this.setState
 				// to actually mean the component itself and not the runQuery function.
 				}.bind(this))
-		}
+
+				helpers.setHistory(this.state.searchTerm)
+				.then(function(data){
+					this.setState({searchHistory:data});
+				}
 	},
 
 	// Here we render the function
