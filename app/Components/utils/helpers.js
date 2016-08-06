@@ -21,7 +21,24 @@ var helpers = {
 				return response.data.results[0].formatted;
 		})
 
-	}
+	},
+	
+	setHistory: function(location) {
+			var date = new Date()
+			console.log(date)
+			//post to mongodb
+			var postItem = {
+				location: location,
+				date: date
+			}
+
+			return axios.post('/api', postItem).then(function (response) {
+	    		console.log(response);
+	  		}).catch(function (error) {
+	   		 console.log(error);
+	 		 });
+
+		} 
 
 }
 

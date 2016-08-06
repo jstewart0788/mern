@@ -49,6 +49,17 @@ var Main = React.createClass({
 						})
 					}
 
+			// helpers.setHistory(this.state.searchTerm)
+			// 	.then(function(data){
+			// 		if (data != this.state.results)
+			// 		{
+			// 			// console.log("HERE");
+			// 			// console.log(data);
+
+			// 			this.setState({
+			// 				results: data
+			// 			})		
+			// 		}
 
 				// This code is necessary to bind the keyword "this" when we say this.setState
 				// to actually mean the component itself and not the runQuery function.

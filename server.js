@@ -39,7 +39,7 @@ app.get('/', function(req, res){
 app.get('/api/', function(req, res) {
 
   // This GET request will search for the latest clickCount
-  db.clicks.find({}, function(err, doc){
+  db.address.find({}, function(err, doc){
 
       if(err){
         console.log(err);
@@ -53,20 +53,22 @@ app.get('/api/', function(req, res) {
 // This is the route we will send POST requests to save each click.
 // We will call this route the moment the "click" or "reset" button is pressed.
 app.post('/api/', function(req, res){
-  console.log(req.body);
+  var object = {
+    location: req.body.location,
+    time: req.body.date
+  }
+  console.log(object);
 
-  var clickID = req.body.clickID;
-  var clicks = parseInt(req.body.clicks);
-
-  // Note how this route utilizes the findOneAndUpdate function to update the clickCount.
-  db.clicks.findOneAndUpdate({"clickID": clickID}, {$set: {"clicks": clicks}}, {upsert: true}, function(err){
+  db.address.insert(object, function(err, data){
 
     if(err){
       console.log(err);
     }
 
     else{
-        res.send("Updated Click Count!");
+        db.address.find({}, function(err, data) {
+          res.json(data)
+        })
     }
 
   });
