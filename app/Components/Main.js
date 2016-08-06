@@ -1,14 +1,15 @@
-// Include React 
+// Include React
 var React = require('react');
 
 // Here we include all of the sub-components
 var Form = require('./Children/Form');
 var Results = require('./Children/Results');
+var History = require('./Children/History');
 
 // Helper Function
 var helpers = require('./utils/helpers.js');
 
-// This is the main component. 
+// This is the main component.
 var Main = React.createClass({
 
 	// Here we set a generic state associated with the number of clicks
@@ -17,7 +18,7 @@ var Main = React.createClass({
 			searchTerm: "",
 			results: ""
 		}
-	},	
+	},
 
 	// We use this function to allow children to update the parent with searchTerms.
 	setTerm: function(term){
@@ -40,14 +41,18 @@ var Main = React.createClass({
 						console.log(data);
 
 						this.setState({
-							results: data
-						})		
+							results: data,
+							history: [{
+								"searchTerm": "New York",
+								"date": "date"
+					    	}]
+						})
 					}
 
 
-				// This code is necessary to bind the keyword "this" when we say this.setState 
+				// This code is necessary to bind the keyword "this" when we say this.setState
 				// to actually mean the component itself and not the runQuery function.
-				}.bind(this))		
+				}.bind(this))
 		}
 	},
 
@@ -66,17 +71,27 @@ var Main = React.createClass({
 					</div>
 
 					<div className="col-md-6">
-					
+
 						<Form setTerm={this.setTerm}/>
 
 					</div>
 
 					<div className="col-md-6">
-				
+
 						<Results address={this.state.results} />
 
 					</div>
 
+
+				</div>
+
+				<div className="row">
+
+				  <div className="col-md-6">
+
+				  	<History address={this.state.history} />
+
+				  </div>
 
 				</div>
 
